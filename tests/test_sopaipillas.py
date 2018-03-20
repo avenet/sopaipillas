@@ -36,3 +36,20 @@ def test_command_line_interface():
     help_result = runner.invoke(cli.main, ['--help'])
     assert help_result.exit_code == 0
     assert '--help  Show this message and exit.' in help_result.output
+
+
+def test_ingredients(capsys):
+    """We use the capsys argument to capture printing to stdout."""
+    # The ingredients function prints the results, but returns nothing.
+    assert sopaipillas.ingredients(2) is None
+
+    # Capture the result of the arepas.ingredients() function call.
+    captured = capsys.readouterr()
+
+    # If we check captured, we can see that the ingredients have been printed.
+    assert "8 cups all-purpose flour" in captured.out
+    assert "4 teaspoons baking powder" in captured.out
+    assert "2 teaspoons salt" in captured.out
+    assert "8 tablespoons shortening" in captured.out
+    assert "3.0 cups warm water" in captured.out
+    assert "4 quarts oil for frying" in captured.out
